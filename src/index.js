@@ -8,7 +8,7 @@ const routerAPI = require('./routes');
 //**Clase #1
 //Aquí para iniciar, aplicarmos una ruta:
 app.get('/',(req,res)=>{
-  res.send("Hola!, mi server Express");
+  res.send("Hola!, mi server Express!!");
 });
 
 //**Clase #2
