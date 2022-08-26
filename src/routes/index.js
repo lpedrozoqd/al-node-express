@@ -4,7 +4,7 @@ const routerProducts = require('./productsRouter');
 const routerUser = require('./usersRouter');
 const routerCategories = require('./categoriesRouter');
 const routerNuevaRuta = require('./nuevaRutaRouter');
-const rootRuta = require('./rootRouter');
+const rootV1Ruta = require('./rootV1Router');
 
 
 function routerAPI(app) {
@@ -23,7 +23,7 @@ function routerAPI(app) {
   router.use('/users',routerUser);
   router.use('/categories',routerCategories);
   router.use('/nueva-ruta',routerNuevaRuta);
-  router.use('/',rootRuta);
+  router.use('/',rootV1Ruta);
 }
 
 module.exports = routerAPI;
