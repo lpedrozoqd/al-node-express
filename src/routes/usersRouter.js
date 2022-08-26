@@ -1,9 +1,8 @@
 const express = require('express');
-const app = express();
 
 const router = express.Router();
 
-app.get('/',(req,res)=>{
+router.get('/',(req,res)=>{
   //Ejemplo de estrategia de paginación
   const {limit, offset} = req.query;
   if (limit && offset){
@@ -12,7 +11,7 @@ app.get('/',(req,res)=>{
       offset
     });
   }else{
-    res.send('Nohay parámetros!');
+    res.send('No hay parámetros!');
   }
 });
 
