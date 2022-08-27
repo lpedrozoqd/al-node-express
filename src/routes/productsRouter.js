@@ -14,16 +14,20 @@ router.get('/filter',(req,res)=>{
 });
 
 
-router.get('/:id',async(req,res)=>{
-  //Opción 1: (desetructuración)
-  const {id} = req.params;
-  const product = await service.findOne(id);
-  if (product){
-    res.json(product);
-  }else{
-    res.status(404).json({
-      message:"Not found"
-    });
+router.get('/:id',async(req,res,next)=>{
+  try {
+    //Opción 1: (desetructuración)
+    const {id} = req.params;
+    const product = await service.findOne(id);
+    if (product){
+      res.json(product);
+    }else{
+      res.status(404).json({
+        message:"Not found"
+      });
+    }
+  } catch (error) {
+    next(error);
   }
 });
 

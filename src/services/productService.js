@@ -42,6 +42,9 @@ class ProductsService{
   }
 
   async findOne(id){
+    //Aquí generaremos un error a propósito para probar los middlewares de errores
+    //con esta fn getTotal la cual no existe:
+    //const name = this.getTotal();
     return this.products.find (item=> item.id === id);
   }
 
