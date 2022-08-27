@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const port = 3000;
 const routerAPI = require('./routes');
-const {logErrors,errorHandler} = require('./middleware/errorHandler');
+const {logErrors,errorHandler, boomErrorHandler} = require('./middleware/errorHandler');
 
 //Esto es el uso de 'middleware', es decir, se está declarando que por }
 //ejemplo para los Post se reciban los msjs en formato json
@@ -17,6 +17,7 @@ routerAPI(app);
 //Deben colocarse los middlewares después del routing y el orden en que se van a
 //ejecut<r
 app.use(logErrors);
+app.use(boomErrorHandler);
 app.use(errorHandler);
 
 //eslint resalta 'console.log' por aquello de que no es una buena práctica dejarlo

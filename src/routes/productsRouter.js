@@ -33,16 +33,21 @@ router.get('/:id',async(req,res,next)=>{
 
 
 
-router.patch('/:id',async(req,res)=>{
+router.patch('/:id',async(req,res,next)=>{
   try {
     const {id} = req.params;
     const body = req.body;
     const product = await service.update(id,body);
     res.json(product);
   } catch (error) {
+    /*
     res.status(404).json({
       message:error.message
     });
+    */
+    //La instrucción anterior es actualizad por el middleware que gestiona errrores:
+    next(error);
+
   }
 });
 
