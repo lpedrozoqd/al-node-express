@@ -49,11 +49,23 @@ router.get('/:id',(req,res)=>{
 });
 
 
-router.post('/',(req,res)=>{
+router.patch('/:id',(req,res)=>{
+  const {id} = req.params;
   const body = req.body;
   res.json({
-    message:"created",
-    data:body
+     id,
+     name:"update" ,
+     data:body
   });
-})
+});
+
+router.delete('/:id',(req,res)=>{
+  const {id} = req.params;
+  res.json({
+     id,
+     name:"deleted"
+     });
+});
+
+
 module.exports = router;
