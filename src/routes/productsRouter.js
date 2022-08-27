@@ -39,14 +39,22 @@ router.get('/:id',(req,res)=>{
   //const id = req.params.id;
 
   //Opción 2: (desetructuración)
-  const {id} = req.params;
 
-  res.json({
-     id,
-     name:"product x" ,
-     price:400
+  const {id} = req.params;
+  //los parámetros se reciben como un string
+  if (id==="999"){
+    res.status(404).json({
+      message:"Not found"
+    });
+  }else{
+    res.json({
+      id,
+      name:"product x" ,
+      price:400
+    });
+  }
   });
-});
+
 
 
 router.patch('/:id',(req,res)=>{
@@ -67,5 +75,12 @@ router.delete('/:id',(req,res)=>{
      });
 });
 
+router.post('/',(req,res)=>{
+  const body = req.body;
+  res.status(201).json({
+    message: "created",
+    data:body
+  })
+});
 
 module.exports = router;
