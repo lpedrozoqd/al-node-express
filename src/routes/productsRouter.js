@@ -25,48 +25,27 @@ router.get('/:id',(req,res)=>{
       message:"Not found"
     });
   }
-
-  /*
-  //los parámetros se reciben como un string
-  if (id==="999"){
-    res.status(404).json({
-      message:"Not found"
-    });
-  }else{
-    res.json({
-      id,
-      name:"product x" ,
-      price:400
-    });
-  }*/
-  });
+});
 
 
 
 router.patch('/:id',(req,res)=>{
   const {id} = req.params;
   const body = req.body;
-  res.json({
-     id,
-     name:"update" ,
-     data:body
-  });
+  const product = service.update(id,body);
+  res.json(product);
 });
 
 router.delete('/:id',(req,res)=>{
   const {id} = req.params;
-  res.json({
-     id,
-     name:"deleted"
-     });
+  const product = service.delete(id);
+  res.json(product);
 });
 
 router.post('/',(req,res)=>{
   const body = req.body;
-  res.status(201).json({
-    message: "created",
-    data:body
-  })
+  const newProduct = service.create(body);
+  res.status(201).json(newProduct);
 });
 
 module.exports = router;
