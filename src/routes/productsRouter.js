@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const ProductsService = require('../services/productService');
 const service = new ProductsService();
+const validatorHandler = require('./../middleware/validatorHandler');
+const {createProductSchema, updateProductSechema, getProductSchema} = require('./../schemas/productSchema');
+
 
 router.get('/',async (req,res)=>{
     const products = await service.find();
@@ -13,8 +16,11 @@ router.get('/filter',(req,res)=>{
   res.send("soy un filter!");
 });
 
-
-router.get('/:id',async(req,res,next)=>{
+//Esta es la definición base de los parámetros antes de usar middleware de validación
+//de datos: router.get('/:id',async(req,res,next)=>{...})
+router.get('/:id'
+  ,validatorHandler(getProductSchema,'params')
+  ,async(req,res,next)=>{
   try {
     //Opción 1: (desetructuración)
     const {id} = req.params;
@@ -33,7 +39,10 @@ router.get('/:id',async(req,res,next)=>{
 
 
 
-router.patch('/:id',async(req,res,next)=>{
+router.patch('/:id',
+  validatorHandler(getProductSchema,'params'),
+  validatorHandler(updateProductSechema,'body'),
+  async(req,res,next)=>{
   try {
     const {id} = req.params;
     const body = req.body;
@@ -57,10 +66,13 @@ router.delete('/:id',async(req,res)=>{
   res.json(product);
 });
 
-router.post('/',async(req,res)=>{
-  const body = req.body;
-  const newProduct = await service.create(body);
-  res.status(201).json(newProduct);
-});
+router.post('/',
+  validatorHandler(createProductSchema,'body'),
+  async(req,res)=>{
+    const body = req.body;
+    const newProduct = await service.create(body);
+    res.status(201).json(newProduct);
+  }
+);
 
 module.exports = router;

@@ -5,7 +5,7 @@ function validatorHandler(schema, property) {
     //property: es para establecer dinámicamente
     //si es un post,get,path,delee,update, etc
     const data = req[property];
-    const {error} = schema.validate(data)
+    const {error} = schema.validate(data, {abortEarly:false})
     if (error){
       next(boom.badRequest(error));
     }
